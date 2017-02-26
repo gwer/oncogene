@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oncogene Demo</title>
+    <script src="../oncogene.js"></script>
+    <link rel="stylesheet" href="./demo.css">
+</head>
+<body>
+    <div class="oncogene"></div>
+    <script>
+        new Oncogene({
+            selector: '.oncogene',
+            steps: [
+                {
+                    key: 'first',
+                    hint: 'first general hint',
+                    variants: [
+                        {
+                            hint: 'first-first hint',
+                            code: 'first-first code',
+                            value: 'first-first'
+                        },
+                        {
+                            hint: 'first-second hint',
+                            code: 'first-second code',
+                            value: 'first-second'
+                        }
+                    ]
+                },
+                {
+                    key: 'second',
+                    hint: 'second general hint',
+                    variants: [
+                        {
+                            hint: 'second-first hint',
+                            code: 'second-first code',
+                            value: true
+                        },
+                        {
+                            hint: 'second-second hint',
+                            code: 'second-second code',
+                            value: false
+                        }
+                    ]
+                }
+            ]
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "oncogene",
+  "version": "1.0.0",
+  "description": "JSON config generator",
+  "main": "oncogene.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gwer/oncogene.git"
+  },
+  "keywords": [
+    "JSON",
+    "config",
+    "generator",
+    "browser"
+  ],
+  "author": "gwer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gwer/oncogene/issues"
+  },
+  "homepage": "https://github.com/gwer/oncogene#readme"
+}
