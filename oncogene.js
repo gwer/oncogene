@@ -1,17 +1,5 @@
 class Oncogene {
-    constructor({
-        selector,
-        steps,
-        config = {},
-        result = {}
-    } = {}) {
-        const options = {
-            selector,
-            steps,
-            config,
-            result
-        }
-
+    constructor(options) {
         this.checkOptions(options)
         this.handleOptions(options)
 
@@ -119,7 +107,7 @@ class Oncogene {
     handleOptions(options) {
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
-        this.config = options.config
+        this.config = options.config || {}
         this.result = Object.assign({
             callback: (config) => JSON.stringify(config, 0, 4)
         }, options.result)
