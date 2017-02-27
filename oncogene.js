@@ -66,10 +66,9 @@ class Oncogene {
             }
 
             if (step.callback) {
-                this.config = step.callback(config, value)
+                this.config = step.callback(this.config, value)
             }
 
-            console.log(this.config)
             this.nextStep()
         }
     }

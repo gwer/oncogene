@@ -13,7 +13,7 @@
             selector: '.oncogene',
             steps: [
                 {
-                    key: 'first',
+                    key: 'idOnly',
                     hint: 'first general hint',
                     variants: [
                         {
@@ -29,7 +29,6 @@
                     ]
                 },
                 {
-                    key: 'second',
                     hint: 'second general hint',
                     variants: [
                         {
@@ -42,8 +41,29 @@
                             code: 'second-second code',
                             value: false
                         }
-                    ]
-                }
+                    ],
+                    callback: (config, value) => {
+                        config.callbackOnly = value
+                        return config
+                    }
+                },
+                {
+                    key: 'thirdByKey',
+                    variants: [
+                        {
+                            hint: 'third-first hint',
+                            value: null
+                        },
+                        {
+                            hint: 'third-second hint',
+                            value: { mayBeObject: true }
+                        }
+                    ],
+                    callback: (config, value) => {
+                        config.thirdByCallback = value
+                        return config
+                    }
+                },
             ]
         })
     </script>
