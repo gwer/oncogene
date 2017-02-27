@@ -91,12 +91,23 @@ class Oncogene {
 
     checkOptions(options) {
         const required = ['selector', 'steps']
+        const objects = ['result', 'classes']
+
+        // Will be true for function. It's little wrong, but not scary
+        const isObject = val => val === Object(val)
+        const isUndefined = val => typeof val === 'undefined'
 
         if (!options) throw new Error('You should specify options')
 
         required.forEach(field => {
             if (!options.hasOwnProperty(field)) {
                 throw new Error(`You should specify ${field}`)
+            }
+        })
+
+        objects.forEach(field => {
+            if (!isUndefined(options[field]) && !isObject(options[field])) {
+                throw new Error(`options.${field} should be an object`)
             }
         })
 
