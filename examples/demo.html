@@ -64,7 +64,12 @@
                         return config
                     }
                 },
-            ]
+            ],
+            result: {
+                callback: (config) => {
+                    return JSON.stringify(config, 4, 4).toUpperCase()
+                }
+            }
         })
     </script>
 </body>

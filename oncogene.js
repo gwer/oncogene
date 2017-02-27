@@ -3,13 +3,13 @@ class Oncogene {
         selector,
         steps,
         config = {},
-        callback = c => c
+        result = {}
     } = {}) {
         const options = {
             selector,
             steps,
             config,
-            callback
+            result
         }
 
         this.checkOptions(options)
@@ -79,9 +79,9 @@ class Oncogene {
 
     renderResult() {
         const result = this.createNode(this.classes.result)
-        const config = this.callback(this.config)
+        const config = this.result.callback(this.config)
 
-        result.textContent = JSON.stringify(this.config, 0, 4)
+        result.textContent = config
 
         this.clearRoot()
         this.root.appendChild(result)
@@ -120,7 +120,9 @@ class Oncogene {
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config
-        this.callback = options.callback
+        this.result = Object.assign({
+            callback: (config) => JSON.stringify(config, 0, 4)
+        }, options.result)
         this.nextStepInx = 0
 
         this.classes = {
