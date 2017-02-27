@@ -21,7 +21,7 @@ class Oncogene {
 
         step.variants.forEach(addVariant.bind(this))
 
-        hint.textContent = step.hint
+        hint.innerHTML = step.hint || ''
 
         root.appendChild(hint)
         root.appendChild(variants)
@@ -34,7 +34,7 @@ class Oncogene {
             const hint = this.createNode(this.classes.variants.hint)
             const code = this.createNode(this.classes.variants.code)
 
-            hint.innerHTML = variant.hint
+            hint.innerHTML = variant.hint || ''
             code.textContent = variant.code
 
             item.dataset.inx = inx
@@ -67,9 +67,13 @@ class Oncogene {
 
     renderResult() {
         const result = this.createNode(this.classes.result.root)
+        const hint = this.createNode(this.classes.result.hint)
         const config = this.createNode(this.classes.result.config)
 
+        result.appendChild(hint)
         result.appendChild(config)
+
+        hint.innerHTML = this.result.hint || ''
         config.textContent = this.result.callback(this.config)
 
         this.clearRoot()
@@ -139,6 +143,7 @@ class Oncogene {
             }, classes.variants),
             result: Object.assign({
                 root: 'oncogene-result',
+                hint: 'oncogene-result__hint',
                 config: 'oncogene-result__config'
             }, classes.result)
         }
