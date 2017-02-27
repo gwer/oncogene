@@ -3,7 +3,7 @@ class Oncogene {
         this.checkOptions(options)
         this.handleOptions(options)
 
-        this.root.classList.add(this.classes.root)
+        this.root.classList.add(this.classes.common.root)
 
         this.nextStep()
     }
@@ -16,8 +16,8 @@ class Oncogene {
 
     renderStep(step) {
         const root = document.createDocumentFragment()
-        const hint = this.createNode(this.classes.commonHint)
-        const variants = this.createNode(this.classes.variants)
+        const hint = this.createNode(this.classes.common.hint)
+        const variants = this.createNode(this.classes.variants.root)
 
         step.variants.forEach(addVariant.bind(this))
 
@@ -30,9 +30,9 @@ class Oncogene {
         this.root.appendChild(root)
 
         function addVariant(variant, inx) {
-            const item = this.createNode(this.classes.variant)
-            const hint = this.createNode(this.classes.hint)
-            const code = this.createNode(this.classes.code)
+            const item = this.createNode(this.classes.variants.item)
+            const hint = this.createNode(this.classes.variants.hint)
+            const code = this.createNode(this.classes.variants.code)
 
             hint.innerHTML = variant.hint
             code.textContent = variant.code
@@ -66,12 +66,14 @@ class Oncogene {
     }
 
     renderResult() {
-        const result = this.createNode(this.classes.result)
-        const config = this.result.callback(this.config)
+        const result = this.createNode(this.classes.result.root)
+        const config = this.createNode(this.classes.result.config)
 
-        result.textContent = config
+        result.appendChild(config)
+        config.textContent = this.result.callback(this.config)
 
         this.clearRoot()
+
         this.root.appendChild(result)
     }
 
@@ -116,21 +118,30 @@ class Oncogene {
     }
 
     handleOptions(options) {
+        const classes = options.classes || {}
+
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config || {}
         this.result = Object.assign({
             callback: (config) => JSON.stringify(config, 0, 4)
         }, options.result)
-        this.classes = Object.assign({
-            root: 'oncogene',
-            commonHint: 'oncogene__hint',
-            variants: 'oncogene-variants',
-            variant: 'oncogene-variant',
-            hint: 'oncogene-variant__hint',
-            code: 'oncogene-variant__code',
-            result: 'oncogene__result'
-        }, options.classes)
+        this.classes = {
+            common: Object.assign({
+                root: 'oncogene',
+                hint: 'oncogene__hint'
+            }, classes.common),
+            variants: Object.assign({
+                root: 'oncogene-variants',
+                hint: 'oncogene-variants__hint',
+                item: 'oncogene-variants__item',
+                code: 'oncogene-variants__code'
+            }, classes.variants),
+            result: Object.assign({
+                root: 'oncogene-result',
+                config: 'oncogene-result__config'
+            }, classes.result)
+        }
         this.nextStepInx = 0
 
         if (!this.root) throw new Error('Can\'t find element by selector')

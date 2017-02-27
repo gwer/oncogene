@@ -24,7 +24,7 @@
     justify-content: space-around;
 }
 
-.oncogene-variant {
+.oncogene-variants__item {
     background-color: #eee;
     padding: 16px;
     border-radius: 4px;
@@ -32,22 +32,25 @@
     opacity: .8;
 }
 
-.oncogene-variant:hover {
+.oncogene-variants__item:hover {
     opacity: 1;
 }
 
-.oncogene-variant__hint {
+.oncogene-variants__hint {
     font-weight: bold;
     opacity: .7;
     margin-bottom: 16px;
 }
 
-.oncogene-variant__code {
+.oncogene-variants__code {
     font-family: monospace;
     white-space: pre;
 }
 
-.oncogene__result {
+.oncogene-result {
+}
+
+.oncogene-result__config {
     font-family: monospace;
     white-space: pre;
 }
