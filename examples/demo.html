@@ -64,12 +64,44 @@
                         return config
                     }
                 },
-            ],
-            result: {
-                hint: 'You can use it <b>everywhere</b>!',
-                callback: (config) => {
-                    return JSON.stringify(config, 4, 4).toUpperCase()
+                {
+                    key: 'many.levels.key',
+                    variants: [
+                        {
+                            hint: 'forth-first hint',
+                            value: 0
+                        },
+                        {
+                            hint: 'forth-second hint',
+                            value: 1
+                        },
+                        {
+                            hint: 'forth-third hint',
+                            value: 2
+                        }
+                    ]
+                },
+                {
+                    key: 'wow.many.levels.key',
+                    variants: [
+                        {
+                            hint: 'fifth-first hint',
+                            value: 0
+                        },
+                        {
+                            hint: 'fifth-second hint',
+                            value: 1
+                        },
+                        {
+                            hint: 'fifth-third hint',
+                            value: 2
+                        }
+                    ]
                 }
+            ],
+            config: {wow: {lol: true}},
+            result: {
+                hint: 'You can use it <b>everywhere</b>!'
             }
         })
     </script>

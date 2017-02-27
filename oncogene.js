@@ -50,7 +50,7 @@ class Oncogene {
             const value = step.variants[inx].value
 
             if (step.key) {
-                this.config[step.key] = value
+                this.setVal(step.key, value)
             }
 
             if (step.callback) {
@@ -95,13 +95,28 @@ class Oncogene {
         }
     }
 
+    setVal(key, value) {
+        const path = key.split('.')
+        let cur = this.config
+
+        while (path.length > 1) {
+            const subKey = path.shift()
+
+            if (!cur.hasOwnProperty(subKey)) cur[subKey] = {}
+
+            if (!this.isObject(cur[subKey])) {
+                throw new Error(`Part of path ${key} is not an object`)
+            }
+
+            cur = cur[subKey]
+        }
+
+        cur[path.shift()] = value
+    }
+
     checkOptions(options) {
         const required = ['selector', 'steps']
         const objects = ['result', 'classes']
-
-        // Will be true for function. It's little wrong, but not scary
-        const isObject = val => val === Object(val)
-        const isUndefined = val => typeof val === 'undefined'
 
         if (!options) throw new Error('You should specify options')
 
@@ -112,13 +127,22 @@ class Oncogene {
         })
 
         objects.forEach(field => {
-            if (!isUndefined(options[field]) && !isObject(options[field])) {
+            if (!this.isUndefined(options[field]) && !this.isObject(options[field])) {
                 throw new Error(`options.${field} should be an object`)
             }
         })
 
         if (!(options.steps instanceof Array))
             throw new Error('Steps should be an array')
+    }
+
+    // Will be true for function. It's little wrong, but not scary
+    isObject(val) {
+        return val === Object(val)
+    }
+
+    isUndefined(val) {
+        return typeof val === 'undefined'
     }
 
     handleOptions(options) {
