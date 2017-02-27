@@ -3,7 +3,9 @@
   "version": "1.0.1",
   "description": "JSON config generator",
   "main": "oncogene.js",
-  "scripts": {},
+  "scripts": {
+    "build": "babel oncogene.js -d lib"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gwer/oncogene.git"
@@ -19,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/gwer/oncogene/issues"
   },
-  "homepage": "https://github.com/gwer/oncogene#readme"
+  "homepage": "https://github.com/gwer/oncogene#readme",
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-env": "^1.1.10",
+    "babili": "0.0.11"
+  }
 }
