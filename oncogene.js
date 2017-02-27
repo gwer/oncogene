@@ -111,9 +111,7 @@ class Oncogene {
         this.result = Object.assign({
             callback: (config) => JSON.stringify(config, 0, 4)
         }, options.result)
-        this.nextStepInx = 0
-
-        this.classes = {
+        this.classes = Object.assign({
             root: 'oncogene',
             commonHint: 'oncogene__hint',
             variants: 'oncogene-variants',
@@ -121,7 +119,8 @@ class Oncogene {
             hint: 'oncogene-variant__hint',
             code: 'oncogene-variant__code',
             result: 'oncogene__result'
-        }
+        }, options.classes)
+        this.nextStepInx = 0
 
         if (!this.root) throw new Error('Can\'t find element by selector')
     }
