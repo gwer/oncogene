@@ -19,6 +19,11 @@
     margin-bottom: 16px;
 }
 
+.oncogene__progress {
+    margin-top: 16px;
+    text-align: center;
+}
+
 .oncogene-variants {
     display: flex;
     justify-content: space-around;

@@ -18,13 +18,16 @@ class Oncogene {
         const root = document.createDocumentFragment()
         const hint = this.createNode(this.classes.common.hint)
         const variants = this.createNode(this.classes.variants.root)
+        const progress = this.createNode(this.classes.common.progress)
 
         step.variants.forEach(addVariant.bind(this))
 
         hint.innerHTML = step.hint || ''
+        progress.textContent = `${this.nextStepInx} / ${this.steps.length}`
 
         root.appendChild(hint)
         root.appendChild(variants)
+        root.appendChild(progress)
 
         this.clearRoot()
         this.root.appendChild(root)
@@ -157,7 +160,8 @@ class Oncogene {
         this.classes = {
             common: Object.assign({
                 root: 'oncogene',
-                hint: 'oncogene__hint'
+                hint: 'oncogene__hint',
+                progress: 'oncogene__progress'
             }, classes.common),
             variants: Object.assign({
                 root: 'oncogene-variants',
