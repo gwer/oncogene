@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stylelint Oncogene Demo</title>
+    <script src="../lib/oncogene.js"></script>
+    <link rel="stylesheet" href="./demo.css">
+    <style>
+        body {
+            display: flex;
+        }
+
+        .oncogene {
+            flex-grow: 1;
+        }
+
+        .result {
+            margin: 16px;
+            flex-basis: 500px;
+            flex-grow: 0;
+            flex-shrink: 0;
+        }
+
+        .result {
+            border: 1px solid #999;
+            padding: 16px;
+            border-radius: 4px;
+        }
+
+        .config {
+            font-family: monospace;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body>
+    <div class="oncogene"></div>
+    <div class="result">
+        Config:
+        <div class="config">{}</div>
+    </div>
+    <script>
+        new Oncogene({
+            selector: '.oncogene',
+            steps: [
+                {
+                    key: 'rules.number-leading-zero',
+                    hint: 'Leading zero',
+                    variants: [
+                        {
+                            code: 'a {\n  opacity: 0.5;\n}',
+                            value: 'always'
+                        },
+                        {
+                            code: 'a {\n  opacity: .5;\n}',
+                            value: 'never'
+                        }
+                    ]
+                },
+                {
+                    key: 'rules.length-zero-no-unit',
+                    hint: 'Units for zero lengths',
+                    variants: [
+                        {
+                            code: 'a {\n  top: 0px;\n}',
+                            value: false
+                        },
+                        {
+                            code: 'a {\n  top: 0;\n}',
+                            value: true
+                        }
+                    ]
+                },
+            ].map(step => Object.assign(step, { callback: updateConfig })),
+            result: {
+                callback: () => {
+                    document.querySelector('.oncogene').remove()
+                }
+            }
+        })
+
+    function updateConfig(config) {
+        document.querySelector('.result > .config').textContent = JSON.stringify(config, 4, 4)
+        return config
+    }
+    </script>
+</body>
+</html>

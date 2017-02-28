@@ -1,6 +1,8 @@
 [![npm version](https://badge.fury.io/js/oncogene.svg)](https://badge.fury.io/js/oncogene)
 
-Oncogene allows to create visual config generators. [Demo](https://gwer.github.io/oncogene/examples/demo.html). 
+Oncogene allows to create visual config generators.
+[Demo 1](https://gwer.github.io/oncogene/examples/demo.html).
+[Demo 2](https://gwer.github.io/oncogene/examples/stylelint.html).
 
 You only need to declare steps.
 
