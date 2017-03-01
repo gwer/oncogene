@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/oncogene.svg)](https://badge.fury.io/js/oncogene)
 
-Oncogene allows to create visual config generators.
+Oncogene (JS**ON** **Co**nfig **Gene**rator) allows to create visual config generators.
 [Demo 1](https://gwer.github.io/oncogene/examples/demo.html).
 [Demo 2](https://gwer.github.io/oncogene/examples/stylelint.html).
 
