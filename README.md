@@ -90,6 +90,17 @@ Example:
 #### options.config {Object}
 Initial config. By default it is empty object (`{}`).
 
+#### options.afterEachStep {Function}
+Function that will be executed after each step.
+
+Params:
+* config {Object} — current config;
+
+Returns:
+* config {Object|Undefined} — new config.
+
+It can return new config or return nothing (undefined). If `afterEachStep` returns undefined, old config will be used.
+
 #### options.result {Object}
 Configuring of result step.
 

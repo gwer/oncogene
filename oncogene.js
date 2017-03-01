@@ -60,6 +60,12 @@ class Oncogene {
                 this.config = step.callback(this.config, value)
             }
 
+            const newConfig = this.afterEachStep(this.config)
+
+            if (!this.isUndefined(newConfig)) {
+                this.config = newConfig
+            }
+
             this.nextStep()
         }
     }
@@ -130,13 +136,21 @@ class Oncogene {
         })
 
         objects.forEach(field => {
-            if (!this.isUndefined(options[field]) && !this.isObject(options[field])) {
+            if (true
+                && !this.isUndefined(options[field])
+                && !this.isObject(options[field])) {
                 throw new Error(`options.${field} should be an object`)
             }
         })
 
         if (!(options.steps instanceof Array))
             throw new Error('Steps should be an array')
+
+        if (true
+            && !this.isUndefined(options.afterEachStep)
+            && !this.isFunction(options.afterEachStep)) {
+            throw new Error('options.afterEachStep should be a function')
+        }
     }
 
     isObject(val) {
@@ -157,6 +171,7 @@ class Oncogene {
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config || {}
+        this.afterEachStep = options.afterEachStep || (c => c)
         this.result = Object.assign({
             callback: (config) => JSON.stringify(config, 0, 4)
         }, options.result)

@@ -71,7 +71,8 @@
                         }
                     ]
                 },
-            ].map(step => Object.assign(step, { callback: updateConfig })),
+            ],
+            afterEachStep: updateConfig,
             result: {
                 callback: () => {
                     document.querySelector('.oncogene').remove()
@@ -81,7 +82,6 @@
 
     function updateConfig(config) {
         document.querySelector('.result > .config').textContent = JSON.stringify(config, 4, 4)
-        return config
     }
     </script>
 </body>
