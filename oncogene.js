@@ -139,13 +139,16 @@ class Oncogene {
             throw new Error('Steps should be an array')
     }
 
-    // Will be true for function. It's little wrong, but not scary
     isObject(val) {
-        return val === Object(val)
+        return (val === Object(val)) && !this.isFunction(val)
     }
 
     isUndefined(val) {
         return typeof val === 'undefined'
+    }
+
+    isFunction(val) {
+        return typeof val === 'function'
     }
 
     handleOptions(options) {
