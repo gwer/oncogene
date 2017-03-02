@@ -99,6 +99,11 @@
                     ]
                 }
             ],
+            stepsCounter: (inx, count) => `
+<div class="progressbar">
+    <div class="progressbar__filler" style="width: ${100 / count * inx}%;"></div>
+</div>
+            `,
             config: {wow: {lol: true}},
             result: {
                 hint: 'You can use it <b>everywhere</b>!'

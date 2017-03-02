@@ -101,6 +101,18 @@ Returns:
 
 It can return new config or return nothing (undefined). If `afterEachStep` returns undefined, old config will be used.
 
+#### options.stepsCounter {Function}
+Function that returns content for progress block.
+
+Params:
+* stepInx {Number} — index of current step;
+* stepsCount {Number} — steps count.
+
+Returns:
+* progress {String} — content for progress block. Can contain HTML ([See Demo](https://gwer.github.io/oncogene/examples/demo.html)).
+
+By default is ```(inx, count) => `${inx + 1} / ${count}` ```.
+
 #### options.result {Object}
 Configuring of result step.
 

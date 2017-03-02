@@ -19,11 +19,13 @@ class Oncogene {
         const hint = this.createNode(this.classes.common.hint)
         const variants = this.createNode(this.classes.variants.root)
         const progress = this.createNode(this.classes.common.progress)
+        const stepInx = this.nextStepInx - 1
+        const stepsCount = this.steps.length
 
         step.variants.forEach(addVariant.bind(this))
 
         hint.innerHTML = step.hint || ''
-        progress.textContent = `${this.nextStepInx} / ${this.steps.length}`
+        progress.innerHTML = this.stepsCounter(stepInx, stepsCount)
 
         root.appendChild(hint)
         root.appendChild(variants)
@@ -126,6 +128,7 @@ class Oncogene {
     checkOptions(options) {
         const required = ['selector', 'steps']
         const objects = ['result', 'classes']
+        const functions = ['afterEachStep', 'stepsCounter']
 
         if (!options) throw new Error('You should specify options')
 
@@ -143,14 +146,16 @@ class Oncogene {
             }
         })
 
+        functions.forEach(field => {
+            if (true
+                && !this.isUndefined(options[field])
+                && !this.isFunction(options[field])) {
+                throw new Error(`options.${field} should be a function`)
+            }
+        })
+
         if (!(options.steps instanceof Array))
             throw new Error('Steps should be an array')
-
-        if (true
-            && !this.isUndefined(options.afterEachStep)
-            && !this.isFunction(options.afterEachStep)) {
-            throw new Error('options.afterEachStep should be a function')
-        }
     }
 
     isObject(val) {
@@ -166,14 +171,22 @@ class Oncogene {
     }
 
     handleOptions(options) {
-        const classes = options.classes || {}
+        const defaults = {
+            config: {},
+            classes: {},
+            afterEachStep: c => c,
+            stepsCounter: (inx, count) => `${inx + 1} / ${count}`,
+            resultCallback: config => JSON.stringify(config, 0, 4)
+        }
+        const classes = options.classes || defaults.classes
 
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
-        this.config = options.config || {}
-        this.afterEachStep = options.afterEachStep || (c => c)
+        this.config = options.config || defaults.config
+        this.afterEachStep = options.afterEachStep || defaults.afterEachStep
+        this.stepsCounter = options.stepsCounter || defaults.stepsCounter
         this.result = Object.assign({
-            callback: (config) => JSON.stringify(config, 0, 4)
+            callback: defaults.resultCallback
         }, options.result)
         this.classes = {
             common: Object.assign({
