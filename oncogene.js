@@ -40,7 +40,7 @@ class Oncogene {
             const code = this.createNode(this.classes.variants.code)
 
             hint.innerHTML = variant.hint || ''
-            code.textContent = variant.code
+            code.innerHTML = variant.code || ''
 
             item.dataset.inx = inx
             item.appendChild(hint)
