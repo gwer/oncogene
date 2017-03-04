@@ -1,6 +1,6 @@
 class Oncogene {
     constructor(options) {
-        this.checkOptions(options)
+        this.constructor.checkOptions(options)
         this.handleOptions(options)
 
         this.root.classList.add(this.classes.common.root)
@@ -64,7 +64,7 @@ class Oncogene {
 
             const newConfig = this.afterEachStep(this.config)
 
-            if (!this.isUndefined(newConfig)) {
+            if (!this.constructor.isUndefined(newConfig)) {
                 this.config = newConfig
             }
 
@@ -115,7 +115,7 @@ class Oncogene {
 
             if (!cur.hasOwnProperty(subKey)) cur[subKey] = {}
 
-            if (!this.isObject(cur[subKey])) {
+            if (!this.constructor.isObject(cur[subKey])) {
                 throw new Error(`Part of path ${key} is not an object`)
             }
 
@@ -123,51 +123,6 @@ class Oncogene {
         }
 
         cur[path.shift()] = value
-    }
-
-    checkOptions(options) {
-        const required = ['selector', 'steps']
-        const objects = ['result', 'classes']
-        const functions = ['afterEachStep', 'stepsCounter']
-
-        if (!options) throw new Error('You should specify options')
-
-        required.forEach(field => {
-            if (!options.hasOwnProperty(field)) {
-                throw new Error(`You should specify ${field}`)
-            }
-        })
-
-        objects.forEach(field => {
-            if (true
-                && !this.isUndefined(options[field])
-                && !this.isObject(options[field])) {
-                throw new Error(`options.${field} should be an object`)
-            }
-        })
-
-        functions.forEach(field => {
-            if (true
-                && !this.isUndefined(options[field])
-                && !this.isFunction(options[field])) {
-                throw new Error(`options.${field} should be a function`)
-            }
-        })
-
-        if (!(options.steps instanceof Array))
-            throw new Error('Steps should be an array')
-    }
-
-    isObject(val) {
-        return (val === Object(val)) && !this.isFunction(val)
-    }
-
-    isUndefined(val) {
-        return typeof val === 'undefined'
-    }
-
-    isFunction(val) {
-        return typeof val === 'function'
     }
 
     handleOptions(options) {
@@ -209,5 +164,50 @@ class Oncogene {
         this.nextStepInx = 0
 
         if (!this.root) throw new Error('Can\'t find element by selector')
+    }
+
+    static checkOptions(options) {
+        const required = ['selector', 'steps']
+        const objects = ['result', 'classes']
+        const functions = ['afterEachStep', 'stepsCounter']
+
+        if (!options) throw new Error('You should specify options')
+
+        required.forEach(field => {
+            if (!options.hasOwnProperty(field)) {
+                throw new Error(`You should specify ${field}`)
+            }
+        })
+
+        objects.forEach(field => {
+            if (true
+                && !this.isUndefined(options[field])
+                && !this.isObject(options[field])) {
+                throw new Error(`options.${field} should be an object`)
+            }
+        })
+
+        functions.forEach(field => {
+            if (true
+                && !this.isUndefined(options[field])
+                && !this.isFunction(options[field])) {
+                throw new Error(`options.${field} should be a function`)
+            }
+        })
+
+        if (!(options.steps instanceof Array))
+            throw new Error('Steps should be an array')
+    }
+
+    static isObject(val) {
+        return (val === Object(val)) && !this.isFunction(val)
+    }
+
+    static isUndefined(val) {
+        return typeof val === 'undefined'
+    }
+
+    static isFunction(val) {
+        return typeof val === 'function'
     }
 }
