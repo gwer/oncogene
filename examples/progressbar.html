@@ -9,7 +9,21 @@
 <body>
     <div class="oncogene"></div>
     <script>
-        new Oncogene({
+        class MyOncogene extends Oncogene {
+            getProgressNode(inx, count) {
+                const progress = this.createNode(this.classes.common.progress)
+
+                progress.innerHTML = `
+                    <div class="progressbar">
+                        <div class="progressbar__filler" style="width: ${100 / count * inx}%;"></div>
+                    </div>
+                `
+
+                return progress
+            }
+        }
+
+        new MyOncogene({
             selector: '.oncogene',
             steps: [
                 {

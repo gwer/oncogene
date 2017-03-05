@@ -18,14 +18,13 @@ class Oncogene {
         const root = document.createDocumentFragment()
         const hint = this.createNode(this.classes.common.hint)
         const variants = this.createNode(this.classes.variants.root)
-        const progress = this.createNode(this.classes.common.progress)
         const stepInx = this.nextStepInx - 1
         const stepsCount = this.steps.length
+        const progress = this.getProgressNode(stepInx, stepsCount)
 
         step.variants.forEach(addVariant.bind(this))
 
         hint.innerHTML = step.hint || ''
-        progress.innerHTML = this.stepsCounter(stepInx, stepsCount)
 
         root.appendChild(hint)
         root.appendChild(variants)
@@ -60,12 +59,6 @@ class Oncogene {
 
             if (step.callback) {
                 this.config = step.callback(this.config, value)
-            }
-
-            const newConfig = this.afterEachStep(this.config)
-
-            if (!this.constructor.isUndefined(newConfig)) {
-                this.config = newConfig
             }
 
             this.nextStep()
@@ -125,21 +118,27 @@ class Oncogene {
         cur[path.shift()] = value
     }
 
+
+    getProgressNode(inx, count) {
+        const progress = this.createNode(this.classes.common.progress)
+
+        progress.innerHTML = `${inx + 1} / ${count}`
+
+        return progress
+    }
+
+
     handleOptions(options) {
         const defaults = {
             config: {},
             classes: {},
-            afterEachStep: c => c,
-            stepsCounter: (inx, count) => `${inx + 1} / ${count}`,
-            resultCallback: config => JSON.stringify(config, 0, 4)
+            resultCallback: config => JSON.stringify(config, null, 4)
         }
         const classes = options.classes || defaults.classes
 
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config || defaults.config
-        this.afterEachStep = options.afterEachStep || defaults.afterEachStep
-        this.stepsCounter = options.stepsCounter || defaults.stepsCounter
         this.result = Object.assign({
             callback: defaults.resultCallback
         }, options.result)
@@ -169,7 +168,6 @@ class Oncogene {
     static checkOptions(options) {
         const required = ['selector', 'steps']
         const objects = ['result', 'classes']
-        const functions = ['afterEachStep', 'stepsCounter']
 
         if (!options) throw new Error('You should specify options')
 
@@ -184,14 +182,6 @@ class Oncogene {
                 && !this.isUndefined(options[field])
                 && !this.isObject(options[field])) {
                 throw new Error(`options.${field} should be an object`)
-            }
-        })
-
-        functions.forEach(field => {
-            if (true
-                && !this.isUndefined(options[field])
-                && !this.isFunction(options[field])) {
-                throw new Error(`options.${field} should be a function`)
             }
         })
 

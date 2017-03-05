@@ -3,8 +3,11 @@
 Oncogene (JS**ON** **Co**nfig **Gene**rator) allows to create visual config generators.
 [Demo 1](https://gwer.github.io/oncogene/examples/demo.html).
 [Demo 2](https://gwer.github.io/oncogene/examples/stylelint.html).
+[Custom Progressbar](https://gwer.github.io/oncogene/examples/progressbar.html).
 
 You only need to declare steps.
+
+**Warning!** Oncogene is in active development. Minor versions may contain breaking changes.
 
 #### Usage
 ```
@@ -89,29 +92,6 @@ Example:
 
 #### options.config {Object}
 Initial config. By default it is empty object (`{}`).
-
-#### options.afterEachStep {Function}
-Function that will be executed after each step.
-
-Params:
-* config {Object} — current config;
-
-Returns:
-* config {Object|Undefined} — new config.
-
-It can return new config or return nothing (undefined). If `afterEachStep` returns undefined, old config will be used.
-
-#### options.stepsCounter {Function}
-Function that returns content for progress block.
-
-Params:
-* stepInx {Number} — index of current step;
-* stepsCount {Number} — steps count.
-
-Returns:
-* progress {String} — content for progress block. Can contain HTML ([See Demo](https://gwer.github.io/oncogene/examples/demo.html)).
-
-By default is ```(inx, count) => `${inx + 1} / ${count}` ```.
 
 #### options.result {Object}
 Configuring of result step.

@@ -40,7 +40,16 @@
         <div class="config">{}</div>
     </div>
     <script>
-        new Oncogene({
+        class MyOncogene extends Oncogene {
+            nextStep() {
+                const result = document.querySelector('.result > .config')
+
+                result.textContent = JSON.stringify(this.config, null, 4)
+                super.nextStep()
+            }
+        }
+
+        new MyOncogene({
             selector: '.oncogene',
             steps: [
                 {
@@ -72,17 +81,12 @@
                     ]
                 },
             ],
-            afterEachStep: updateConfig,
             result: {
                 callback: () => {
                     document.querySelector('.oncogene').remove()
                 }
             }
         })
-
-    function updateConfig(config) {
-        document.querySelector('.result > .config').textContent = JSON.stringify(config, 4, 4)
-    }
     </script>
 </body>
 </html>
