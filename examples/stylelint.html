@@ -47,6 +47,10 @@
                 result.textContent = JSON.stringify(this.config, null, 4)
                 super.nextStep()
             }
+
+            getResult() {
+                document.querySelector('.oncogene').remove()
+            }
         }
 
         new MyOncogene({
@@ -80,12 +84,7 @@
                         }
                     ]
                 },
-            ],
-            result: {
-                callback: () => {
-                    document.querySelector('.oncogene').remove()
-                }
-            }
+            ]
         })
     </script>
 </body>

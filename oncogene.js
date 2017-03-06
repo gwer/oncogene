@@ -78,7 +78,7 @@ class Oncogene {
         result.appendChild(config)
 
         hint.innerHTML = this.result.hint || ''
-        config.textContent = this.result.callback(this.config)
+        config.textContent = this.getResult()
 
         this.clearRoot()
 
@@ -127,21 +127,22 @@ class Oncogene {
         return progress
     }
 
+    getResult() {
+        return JSON.stringify(this.config, null, 4)
+    }
+
 
     handleOptions(options) {
         const defaults = {
             config: {},
-            classes: {},
-            resultCallback: config => JSON.stringify(config, null, 4)
+            classes: {}
         }
         const classes = options.classes || defaults.classes
 
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config || defaults.config
-        this.result = Object.assign({
-            callback: defaults.resultCallback
-        }, options.result)
+        this.result = Object.assign({}, options.result)
         this.classes = {
             common: Object.assign({
                 root: 'oncogene',
