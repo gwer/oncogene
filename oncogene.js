@@ -66,22 +66,9 @@ class Oncogene {
     }
 
     showResults() {
-        this.renderResult()
-    }
-
-    renderResult() {
-        const result = this.createNode(this.classes.result.root)
-        const hint = this.createNode(this.classes.result.hint)
-        const config = this.createNode(this.classes.result.config)
-
-        result.appendChild(hint)
-        result.appendChild(config)
-
-        hint.innerHTML = this.result.hint || ''
-        config.textContent = this.getResult()
+        const result = this.getResultNode(this.getResult(), this.result.hint)
 
         this.clearRoot()
-
         this.root.appendChild(result)
     }
 
@@ -119,6 +106,20 @@ class Oncogene {
     }
 
 
+    getResultNode(result, hint) {
+        const resultNode = this.createNode(this.classes.result.root)
+        const hintNode = this.createNode(this.classes.result.hint)
+        const configNode = this.createNode(this.classes.result.config)
+
+        resultNode.appendChild(hintNode)
+        resultNode.appendChild(configNode)
+
+        hintNode.innerHTML = hint
+        configNode.textContent = result
+
+        return resultNode
+    }
+
     getProgressNode(inx, count) {
         const progress = this.createNode(this.classes.common.progress)
 
@@ -142,7 +143,9 @@ class Oncogene {
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
         this.config = options.config || defaults.config
-        this.result = Object.assign({}, options.result)
+        this.result = Object.assign({
+            hint: ''
+        }, options.result)
         this.classes = {
             common: Object.assign({
                 root: 'oncogene',
