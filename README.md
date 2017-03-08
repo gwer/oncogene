@@ -99,21 +99,6 @@ Configuring of result step.
 #### options.result.hint {String}
 Result hint. Can contain HTML.
 
-#### options.result.callback {Function}
-Final config handler.
-
-By default is `(config) => JSON.stringify(config, 0, 4)`.
-
-Params:
-* config {Object} — current config;
-
-Returns:
-* config {Object} — new config.
-
-Using this callback you can get any config format, not only JSON.
-
-You can also do what you want with it. For example you can hide Oncogene-block and send results to server using AJAX.
-
 #### options.classes {Object}
 Classes definition.
 
