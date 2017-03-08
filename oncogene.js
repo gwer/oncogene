@@ -9,64 +9,21 @@ class Oncogene {
     }
 
     nextStep() {
-        if (this.nextStepInx >= this.steps.length) return this.showResults()
+        if (++this.stepInx >= this.steps.length) return this.renderResults()
 
-        this.renderStep(this.steps[this.nextStepInx++])
+        this.step = this.steps[this.stepInx]
+        this.renderStep()
     }
 
-    renderStep(step) {
-        const root = document.createDocumentFragment()
-        const hint = this.createNode(this.classes.common.hint)
-        const variants = this.createNode(this.classes.variants.root)
-        const stepInx = this.nextStepInx - 1
-        const stepsCount = this.steps.length
-        const progress = this.getProgressNode(stepInx, stepsCount)
-
-        step.variants.forEach(addVariant.bind(this))
-
-        hint.innerHTML = step.hint || ''
-
-        root.appendChild(hint)
-        root.appendChild(variants)
-        root.appendChild(progress)
+    renderStep() {
+        const stepNode = this.getStepNode()
 
         this.clearRoot()
-        this.root.appendChild(root)
-
-        function addVariant(variant, inx) {
-            const item = this.createNode(this.classes.variants.item)
-            const hint = this.createNode(this.classes.variants.hint)
-            const code = this.createNode(this.classes.variants.code)
-
-            hint.innerHTML = variant.hint || ''
-            code.innerHTML = variant.code || ''
-
-            item.dataset.inx = inx
-            item.appendChild(hint)
-            item.appendChild(code)
-            item.addEventListener('click', clickHandler.bind(this))
-
-            variants.appendChild(item)
-        }
-
-        function clickHandler(e) {
-            const inx = e.currentTarget.dataset.inx
-            const value = step.variants[inx].value
-
-            if (step.key) {
-                this.setVal(step.key, value)
-            }
-
-            if (step.callback) {
-                this.config = step.callback(this.config, value)
-            }
-
-            this.nextStep()
-        }
+        this.root.appendChild(stepNode)
     }
 
-    showResults() {
-        const result = this.getResultNode(this.getResult(), this.result.hint)
+    renderResults() {
+        const result = this.getResultNode()
 
         this.clearRoot()
         this.root.appendChild(result)
@@ -106,7 +63,52 @@ class Oncogene {
     }
 
 
-    getResultNode(result, hint) {
+    getStepNode() {
+        const root = document.createDocumentFragment()
+        const hint = this.createNode(this.classes.common.hint)
+        const variants = this.createNode(this.classes.variants.root)
+        const progress = this.getProgressNode()
+
+        this.step.variants.forEach((variant, inx) => {
+            const variantNode = this.getVariantNode(variant, inx)
+
+            variants.appendChild(variantNode)
+        })
+
+        hint.innerHTML = this.step.hint || ''
+
+        root.appendChild(hint)
+        root.appendChild(variants)
+        root.appendChild(progress)
+
+        return root
+    }
+
+    getVariantNode(variant, inx) {
+        const item = this.createNode(this.classes.variants.item)
+        const hint = this.createNode(this.classes.variants.hint)
+        const code = this.createNode(this.classes.variants.code)
+
+        hint.innerHTML = variant.hint || ''
+        code.innerHTML = variant.code || ''
+
+        item.dataset.inx = inx
+        item.appendChild(hint)
+        item.appendChild(code)
+        item.addEventListener('click', this.variantClickHandler.bind(this))
+
+        return item
+    }
+
+    getProgressNode() {
+        const progress = this.createNode(this.classes.common.progress)
+
+        progress.innerHTML = `${this.stepInx + 1} / ${this.steps.length}`
+
+        return progress
+    }
+
+    getResultNode() {
         const resultNode = this.createNode(this.classes.result.root)
         const hintNode = this.createNode(this.classes.result.hint)
         const configNode = this.createNode(this.classes.result.config)
@@ -114,24 +116,31 @@ class Oncogene {
         resultNode.appendChild(hintNode)
         resultNode.appendChild(configNode)
 
-        hintNode.innerHTML = hint
-        configNode.textContent = result
+        hintNode.innerHTML = this.result.hint
+        configNode.textContent = this.getResult()
 
         return resultNode
     }
 
-    getProgressNode(inx, count) {
-        const progress = this.createNode(this.classes.common.progress)
 
-        progress.innerHTML = `${inx + 1} / ${count}`
+    variantClickHandler(e) {
+        const inx = e.currentTarget.dataset.inx
+        const value = this.step.variants[inx].value
 
-        return progress
+        if (this.step.key) {
+            this.setVal(this.step.key, value)
+        }
+
+        if (this.step.callback) {
+            this.config = this.step.callback(this.config, value)
+        }
+
+        this.nextStep()
     }
 
     getResult() {
         return JSON.stringify(this.config, null, 4)
     }
-
 
     handleOptions(options) {
         const defaults = {
@@ -164,10 +173,11 @@ class Oncogene {
                 config: 'oncogene-result__config'
             }, classes.result)
         }
-        this.nextStepInx = 0
+        this.stepInx = -1
 
         if (!this.root) throw new Error('Can\'t find element by selector')
     }
+
 
     static checkOptions(options) {
         const required = ['selector', 'steps']
