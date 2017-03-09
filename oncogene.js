@@ -15,6 +15,13 @@ class Oncogene {
         this.renderStep()
     }
 
+    prevStep() {
+        if (--this.stepInx < 0) throw new Error('Previous step is not exists')
+
+        this.step = this.steps[this.stepInx]
+        this.renderStep()
+    }
+
     renderStep() {
         const stepNode = this.getStepNode()
 
