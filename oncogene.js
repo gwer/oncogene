@@ -5,35 +5,36 @@ class Oncogene {
 
         this.root.classList.add(this.classes.common.root)
 
-        this.nextStep()
+        this.makeStep(0)
     }
 
     nextStep() {
-        if (++this.stepInx >= this.steps.length) return this.renderResults()
-
-        this.step = this.steps[this.stepInx]
-        this.renderStep()
+        this.makeStep(1)
     }
 
     prevStep() {
-        if (--this.stepInx < 0) throw new Error('Previous step is not exists')
+        this.makeStep(-1)
+    }
 
-        this.step = this.steps[this.stepInx]
+    makeStep(stepSize) {
+        this.stepInx = Math.max(0, this.stepInx + stepSize)
+
+        if (this.stepInx >= this.steps.length) return this.renderResult()
+
         this.renderStep()
     }
 
     renderStep() {
-        const stepNode = this.getStepNode()
-
-        this.clearRoot()
-        this.root.appendChild(stepNode)
+        this.render(this.getStepNode())
     }
 
-    renderResults() {
-        const result = this.getResultNode()
+    renderResult() {
+        this.render(this.getResultNode())
+    }
 
+    render(node) {
         this.clearRoot()
-        this.root.appendChild(result)
+        this.root.appendChild(node)
     }
 
     createNode(className) {
@@ -76,13 +77,13 @@ class Oncogene {
         const variants = this.createNode(this.classes.variants.root)
         const progress = this.getProgressNode()
 
-        this.step.variants.forEach((variant, inx) => {
+        this.getStep().variants.forEach((variant, inx) => {
             const variantNode = this.getVariantNode(variant, inx)
 
             variants.appendChild(variantNode)
         })
 
-        hint.innerHTML = this.step.hint || ''
+        hint.innerHTML = this.getStep().hint || ''
 
         root.appendChild(hint)
         root.appendChild(variants)
@@ -131,18 +132,23 @@ class Oncogene {
 
 
     variantClickHandler(e) {
+        const step = this.getStep()
         const inx = e.currentTarget.dataset.inx
-        const value = this.step.variants[inx].value
+        const value = step.variants[inx].value
 
-        if (this.step.key) {
-            this.setVal(this.step.key, value)
+        if (step.key) {
+            this.setVal(step.key, value)
         }
 
-        if (this.step.callback) {
-            this.config = this.step.callback(this.config, value)
+        if (step.callback) {
+            this.config = step.callback(this.config, value)
         }
 
         this.nextStep()
+    }
+
+    getStep() {
+        return this.steps[this.stepInx]
     }
 
     getResult() {
@@ -180,7 +186,7 @@ class Oncogene {
                 config: 'oncogene-result__config'
             }, classes.result)
         }
-        this.stepInx = -1
+        this.stepInx = 0
 
         if (!this.root) throw new Error('Can\'t find element by selector')
     }
