@@ -156,39 +156,37 @@ class Oncogene {
     }
 
     handleOptions(options) {
-        const defaults = {
-            config: {},
-            classes: {}
-        }
-        const classes = options.classes || defaults.classes
-
         this.root = document.querySelector(options.selector)
         this.steps = options.steps
-        this.config = options.config || defaults.config
+        this.config = options.config || {}
         this.result = Object.assign({
             hint: ''
         }, options.result)
-        this.classes = {
-            common: Object.assign({
+        this.classes = this.getClasses()
+        this.stepInx = 0
+
+        if (!this.root) throw new Error('Can\'t find element by selector')
+    }
+
+    getClasses() {
+        return {
+            common: {
                 root: 'oncogene',
                 hint: 'oncogene__hint',
                 progress: 'oncogene__progress'
-            }, classes.common),
-            variants: Object.assign({
+            },
+            variants: {
                 root: 'oncogene-variants',
                 hint: 'oncogene-variants__hint',
                 item: 'oncogene-variants__item',
                 code: 'oncogene-variants__code'
-            }, classes.variants),
-            result: Object.assign({
+            },
+            result: {
                 root: 'oncogene-result',
                 hint: 'oncogene-result__hint',
                 config: 'oncogene-result__config'
-            }, classes.result)
+            }
         }
-        this.stepInx = 0
-
-        if (!this.root) throw new Error('Can\'t find element by selector')
     }
 
 

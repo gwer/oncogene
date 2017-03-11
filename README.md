@@ -98,32 +98,3 @@ Configuring of result step.
 
 #### options.result.hint {String}
 Result hint. Can contain HTML.
-
-#### options.classes {Object}
-Classes definition.
-
-By default Oncogene use BEM notation.
-
-Default classes:
-```
-{
-    common: {
-        root: 'oncogene',
-        hint: 'oncogene__hint',
-        progress: 'oncogene__progress'
-    },
-    variants: {
-        root: 'oncogene-variants',
-        hint: 'oncogene-variants__hint',
-        item: 'oncogene-variants__item',
-        code: 'oncogene-variants__code'
-    },
-    result: {
-        root: 'oncogene-result',
-        hint: 'oncogene-result__hint',
-        config: 'oncogene-result__config'
-    }
-}
-```
-
-You can override it. Furthermore classes may be partially overridden.
