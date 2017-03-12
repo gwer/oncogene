@@ -93,6 +93,9 @@ Example:
 #### options.config {Object}
 Initial config. By default it is empty object (`{}`).
 
+#### options.skipValidation {Boolean}
+Options validation skipping. By default it is false.
+
 #### options.result {Object}
 Configuring of result step.
 

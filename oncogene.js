@@ -1,6 +1,9 @@
 class Oncogene {
     constructor(options) {
-        this.constructor.checkOptions(options)
+        if (!options.skipValidation) {
+            this.constructor.checkOptions(options)
+        }
+
         this.handleOptions(options)
 
         this.root.classList.add(this.classes.common.root)
