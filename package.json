@@ -1,6 +1,6 @@
 {
   "name": "oncogene",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "JSON config generator",
   "main": "oncogene.js",
   "scripts": {
