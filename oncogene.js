@@ -216,35 +216,32 @@ class Oncogene {
         if (!(this.isArray(options.steps)))
             throw new Error('Steps should be an array')
 
-        options.steps.forEach(step => {
+        options.steps.forEach((step, stepIndex) => {
+            const stepNum = stepIndex + 1
             if (true
                 && this.isUndefined(step.key)
                 && this.isUndefined(step.callback))
-                    throw new Error('Step should have key or callback')
+                    throw new Error(`Step ${stepNum} should have key or callback`)
 
             if (true
                 && !this.isUndefined(step.callback)
                 && !this.isFunction(step.callback)) 
-                    throw new Error('Step callback should be a function')
+                    throw new Error(`Callback of ${stepNum} step should be a function`)
 
-            if (true
-                && !this.isUndefined(step.key)
-                && !this.isString(step.key))
-                    throw new Error('Step key should be a string')
-
-            if (this.isUndefined(step.variants) || !this.isArray(step.variants))
-                throw new Error('Step should have array of variants')
+            if (!this.isArray(step.variants))
+                throw new Error(`Step ${stepNum} should have array of variants`)
 
             if (step.variants.length < 2)
-                throw new Error('Step should have at least two variants')
+                throw new Error(`Step ${stepNum} should have at least two variants`)
 
-            step.variants.forEach(variant => {
+            step.variants.forEach((variant, variantIndex) => {
+                const variantNum = variantIndex + 1
                 if (true
                     && this.isUndefined(variant.hint)
                     && this.isUndefined(variant.code))
-                        throw new Error('Variant should have hint or code')
+                        throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
                 if (this.isUndefined(variant.value))
-                    throw new Error('Variant should have a value')
+                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value`)
             })
 
         });
@@ -267,6 +264,6 @@ class Oncogene {
     }
 
     static isArray(val) {
-        return val instanceof Array
+        return Array.isArray(val)
     }
 }
