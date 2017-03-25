@@ -218,6 +218,7 @@ class Oncogene {
 
         options.steps.forEach((step, stepIndex) => {
             const stepNum = stepIndex + 1
+
             if (true
                 && this.isUndefined(step.key)
                 && this.isUndefined(step.callback))
@@ -236,15 +237,17 @@ class Oncogene {
 
             step.variants.forEach((variant, variantIndex) => {
                 const variantNum = variantIndex + 1
+
                 if (true
                     && this.isUndefined(variant.hint)
                     && this.isUndefined(variant.code))
                         throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
+
                 if (this.isUndefined(variant.value))
                     throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value`)
             })
 
-        });
+        })
     }
 
     static isObject(val) {
