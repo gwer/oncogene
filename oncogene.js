@@ -213,8 +213,41 @@ class Oncogene {
             }
         })
 
-        if (!(options.steps instanceof Array))
+        if (!(this.isArray(options.steps)))
             throw new Error('Steps should be an array')
+
+        options.steps.forEach((step, stepIndex) => {
+            const stepNum = stepIndex + 1
+
+            if (true
+                && this.isUndefined(step.key)
+                && this.isUndefined(step.callback))
+                    throw new Error(`Step ${stepNum} should have key or callback`)
+
+            if (true
+                && !this.isUndefined(step.callback)
+                && !this.isFunction(step.callback)) 
+                    throw new Error(`Callback of ${stepNum} step should be a function`)
+
+            if (!this.isArray(step.variants))
+                throw new Error(`Step ${stepNum} should have array of variants`)
+
+            if (step.variants.length < 2)
+                throw new Error(`Step ${stepNum} should have at least two variants`)
+
+            step.variants.forEach((variant, variantIndex) => {
+                const variantNum = variantIndex + 1
+
+                if (true
+                    && this.isUndefined(variant.hint)
+                    && this.isUndefined(variant.code))
+                        throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
+
+                if (this.isUndefined(variant.value))
+                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value`)
+            })
+
+        })
     }
 
     static isObject(val) {
@@ -227,5 +260,13 @@ class Oncogene {
 
     static isFunction(val) {
         return typeof val === 'function'
+    }
+
+    static isString(val) {
+        return typeof val === 'string'
+    }
+
+    static isArray(val) {
+        return Array.isArray(val)
     }
 }
