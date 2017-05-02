@@ -70,7 +70,7 @@ class Oncogene {
             cur = cur[subKey]
         }
 
-        let leafKey = path.shift();
+        const leafKey = path.shift();
 
         if(this.constructor.isArray(cur[leafKey]) && selectedVarient.replace !== true && step.replace !== true) {
             cur[leafKey].push(value)
