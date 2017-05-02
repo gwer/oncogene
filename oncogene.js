@@ -54,7 +54,7 @@ class Oncogene {
         }
     }
 
-    setVal(key, value) {
+    setVal(key, value, selectedVarient, step) {
         const path = key.split('.')
         let cur = this.config
 
@@ -70,7 +70,13 @@ class Oncogene {
             cur = cur[subKey]
         }
 
-        cur[path.shift()] = value
+        let leafKey = path.shift();
+
+        if(this.constructor.isArray(cur[leafKey]) && selectedVarient.replace !== true && step.replace !== true) {
+            cur[leafKey].push(value)
+        } else {
+            cur[leafKey] = value
+        }
     }
 
 
@@ -137,10 +143,11 @@ class Oncogene {
     variantClickHandler(e) {
         const step = this.getStep()
         const inx = e.currentTarget.dataset.inx
-        const value = step.variants[inx].value
+        const selectedVarient = step.variants[inx]
+        const value = selectedVarient.value
 
         if (step.key) {
-            this.setVal(step.key, value)
+            this.setVal(step.key, value, selectedVarient, step)
         }
 
         if (step.callback) {

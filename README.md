@@ -61,6 +61,9 @@ Variant hint. Can contain HTML.
 #### options.steps[].variants[].code {String}
 Code example.
 
+#### options.steps[].variants[].replace {Boolean}
+Applicable in case of array. Default behaviour for key with a array value, is to append.  Setting it true will force the value to be replaced.
+
 #### options.steps[].variants[].value {Any}
 Any value that will be set by `key` or/and will be used in `callback`.
 
@@ -95,6 +98,9 @@ Initial config. By default it is empty object (`{}`).
 
 #### options.skipValidation {Boolean}
 Options validation skipping. By default it is false.
+
+#### options.replace {Boolean}
+Applicable in case of array. Default behaviour for a key with array value, is to append.  Setting it true will force the value to be replaced.
 
 #### options.result {Object}
 Configuring of result step.
