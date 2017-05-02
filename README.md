@@ -52,6 +52,9 @@ Returns:
 #### options.steps[].hint {String}
 Common hint. Can contain HTML.
 
+#### options.steps[].replace {Boolean}
+Applicable in case of array. Default behaviour for a key with array value, is to append.  Setting it true will force the value to be replaced.
+
 #### options.steps[].variants[] {Object}
 Array of variants. It should contain at least two items.
 
@@ -98,9 +101,6 @@ Initial config. By default it is empty object (`{}`).
 
 #### options.skipValidation {Boolean}
 Options validation skipping. By default it is false.
-
-#### options.replace {Boolean}
-Applicable in case of array. Default behaviour for a key with array value, is to append.  Setting it true will force the value to be replaced.
 
 #### options.result {Object}
 Configuring of result step.
