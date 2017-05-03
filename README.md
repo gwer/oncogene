@@ -9,7 +9,7 @@ You only need to declare steps.
 
 **Warning!** Oncogene is in active development. Minor versions may contain breaking changes.
 
-#### Usage
+### Usage
 ```
 new Oncogene(options)
 ```
@@ -107,3 +107,10 @@ Configuring of result step.
 
 #### options.result.hint {String}
 Result hint. Can contain HTML.
+
+
+### In the wild
+
+- [eslint-config-generator](https://github.com/awebdeveloper/eslint-config-generator)
+- [stylelint-config](https://github.com/maximgatilin/stylelint-config)
+- 
