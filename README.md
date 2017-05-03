@@ -52,9 +52,6 @@ Returns:
 #### options.steps[].hint {String}
 Common hint. Can contain HTML.
 
-#### options.steps[].push {Boolean}
-Applicable in case of array. Default behaviour, is to replace.  Setting it true will force the value to be pushed instead.
-
 #### options.steps[].variants[] {Object}
 Array of variants. It should contain at least two items.
 
