@@ -261,8 +261,8 @@ class Oncogene {
                     throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
                 }
 
-                if (this.isUndefined(variant.value) && this.isUndefined(variant.skip)) {
-                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value or skip`)
+                if (this.isUndefined(variant.value) && (this.isUndefined(variant.skip) || variant.skip === false)) {
+                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value or skip:true`)
                 }
             })
         })
