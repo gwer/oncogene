@@ -56,6 +56,10 @@ class Oncogene {
 
     setVal(key, selectedVarient) {
         const step = this.getStep()
+        if(step.skip === true) {
+            return;
+        }
+
         const path = key.split('.')
         const value = selectedVarient.value
         let cur = this.config
@@ -257,8 +261,8 @@ class Oncogene {
                     throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
                 }
 
-                if (this.isUndefined(variant.value)) {
-                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value`)
+                if (this.isUndefined(variant.value) && this.isUndefined(variant.skip)) {
+                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value or skip`)
                 }
             })
         })
