@@ -65,7 +65,7 @@ Code example.
 Applicable in case of array or object. Default behaviour, is to replace.  Setting it true will force the value to be pushed/merged instead.
 
 #### options.steps[].variants[].skip {Boolean}
-Skip true will not add any value to array
+Skip true will not add this key to config
 
 #### options.steps[].variants[].value {Any}
 Any value that will be set by `key` or/and will be used in `callback`.
