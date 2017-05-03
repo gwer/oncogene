@@ -86,7 +86,36 @@ const options = {
                     value: 2
                 }
             ]
-        }
+        },
+        {
+            key: 'sixthByKey',
+            variants: [
+                {
+                    hint: 'sixth-first hint',
+                    value: ["error", 4]
+                },
+                {
+                    hint: 'sixth-second hint',
+                    value: ["error",2]
+                }
+            ]
+        },
+        {
+            key: 'sixthByKey',
+            variants: [
+                {
+                    hint: 'Will replace prev',
+                    code: 'seventh-first code',
+                    value: {dummy:true},
+                    push: true
+                },
+                {
+                    hint: 'Will append to prev',
+                    code: 'seventh-second code',
+                    value: {dummy:false}
+                }
+            ]
+        },
     ],
     config: {wow: {lol: true}},
     result: {
