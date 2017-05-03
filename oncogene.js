@@ -56,7 +56,7 @@ class Oncogene {
 
     setVal(key, selectedVarient) {
         const step = this.getStep()
-        if(step.skip === true) {
+        if(selectedVarient.skip === true) {
             return;
         }
 
