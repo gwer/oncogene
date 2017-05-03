@@ -86,6 +86,7 @@ const options = {
                     value: 2
                 }
             ]
+
         },
         {
             key: 'sixthByKey',
@@ -113,11 +114,6 @@ const options = {
                     code: 'seventh-second code',
                     value: {dummy:false},
                     push: true
-                },
-                {
-                    hint: 'Will skip this',
-                    code: 'skip code',
-                    skip: true
                 }
             ]
         },

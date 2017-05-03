@@ -56,10 +56,6 @@ class Oncogene {
 
     setVal(key, selectedVarient) {
         const step = this.getStep()
-        if(step.skip === true) {
-            return;
-        }
-
         const path = key.split('.')
         const value = selectedVarient.value
         let cur = this.config
