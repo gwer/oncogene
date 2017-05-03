@@ -85,7 +85,9 @@ class Oncogene {
 
         const leafKey = path.shift();
 
-        if(this.constructor.isArray(cur[leafKey]) &&  selectedVarient.push === true) {
+        if (this.constructor.isObject(cur[leafKey]) && selectedVarient.push) {
+            cur[leafKey] = Object.assign(cur[leafKey], value)
+        } else if (this.constructor.isArray(cur[leafKey]) &&  selectedVarient.push) {
             cur[leafKey].push(value)
         } else {
             cur[leafKey] = value
