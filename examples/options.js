@@ -104,13 +104,24 @@ const options = {
             key: 'sixthByKey',
             variants: [
                 {
-                    hint: 'Will replace prev',
+                    hint: 'Will replace prev array',
                     code: 'seventh-first code',
                     value: {dummy:true}
                 },
                 {
                     hint: 'Will append to prev',
                     code: 'seventh-second code',
+                    value: {dummy:false},
+                    push: true
+                }
+            ]
+        },
+        {
+            key: 'wow',
+            variants: [
+                {
+                    hint: 'Can push to a object',
+                    code: 'eigth-first code',
                     value: {dummy:false},
                     push: true
                 },
