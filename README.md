@@ -49,6 +49,15 @@ Returns:
 
 **Note: You can use key or callback or both**
 
+#### options.steps[].showIf {Function}
+The given step is only shown if the callback returns true.
+
+Params:
+* config {Object} — current config;
+
+Returns:
+* true or false.
+
 #### options.steps[].hint {String}
 Common hint. Can contain HTML.
 
