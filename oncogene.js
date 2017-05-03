@@ -22,7 +22,14 @@ class Oncogene {
     makeStep(stepSize) {
         this.stepInx = Math.max(0, this.stepInx + stepSize)
 
-        if (this.stepInx >= this.steps.length) return this.renderResult()
+        if (this.stepInx >= this.steps.length) {
+            return this.renderResult()
+        }
+
+        const step = this.getStep();
+        if (this.constructor.isFunction(step.showIf) && !step.showIf(this.config)) {
+           return this.nextStep();
+        }
 
         this.renderStep()
     }
@@ -91,12 +98,7 @@ class Oncogene {
         const hint = this.createNode(this.classes.common.hint)
         const variants = this.createNode(this.classes.variants.root)
         const progress = this.getProgressNode()
-        let   step = this.getStep();
-
-        while(this.isFunction(step.showIf) && !step.showIf(this.config)) {
-            this.inx++;
-            step = this.getStep();
-        }
+        const step = this.getStep();
 
         step.variants.forEach((variant, inx) => {
             const variantNode = this.getVariantNode(variant, inx)
