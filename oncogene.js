@@ -56,7 +56,7 @@ class Oncogene {
 
     setVal(key, selectedVarient) {
         const step = this.getStep()
-        if(selectedVarient.skip === true) {
+        if(selectedVarient.skip) {
             return;
         }
 
@@ -261,8 +261,8 @@ class Oncogene {
                     throw new Error(`Variant ${variantNum} of step ${stepNum} should have hint or code`)
                 }
 
-                if (this.isUndefined(variant.value) && this.isUndefined(variant.skip)) {
-                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value or skip`)
+                if (this.isUndefined(variant.value) && !variant.skip) {
+                    throw new Error(`Variant ${variantNum} of step ${stepNum} should have a value or skip:true`)
                 }
             })
         })
