@@ -104,10 +104,10 @@ const options = {
             key: 'sixthByKey',
             variants: [
                 {
-                    hint: 'Will replace prev key',
+                    hint: 'Will replace prev',
                     code: 'seventh-first code',
                     value: {dummy:true},
-                    replace: true
+                    push: true
                 },
                 {
                     hint: 'Will append to prev',
