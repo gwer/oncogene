@@ -100,9 +100,8 @@ class Oncogene {
         const hint = this.createNode(this.classes.common.hint)
         const variants = this.createNode(this.classes.variants.root)
         const progress = this.getProgressNode()
-        const step = this.getStep();
 
-        step.variants.forEach((variant, inx) => {
+        this.getStep().variants.forEach((variant, inx) => {
             const variantNode = this.getVariantNode(variant, inx)
 
             variants.appendChild(variantNode)
