@@ -86,6 +86,7 @@ const options = {
                     value: 2
                 }
             ]
+
         },
         {
             key: 'sixthByKey',
@@ -106,13 +107,13 @@ const options = {
                 {
                     hint: 'Will replace prev',
                     code: 'seventh-first code',
-                    value: {dummy:true},
-                    push: true
+                    value: {dummy:true}
                 },
                 {
                     hint: 'Will append to prev',
                     code: 'seventh-second code',
-                    value: {dummy:false}
+                    value: {dummy:false},
+                    push: true
                 }
             ]
         },
