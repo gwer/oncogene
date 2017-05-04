@@ -28,7 +28,7 @@ class Oncogene {
 
         const step = this.getStep();
         if (this.constructor.isFunction(step.showIf) && !step.showIf(this.config)) {
-           return this.nextStep();
+           return this.makeStep(stepSize);
         }
 
         this.renderStep()
