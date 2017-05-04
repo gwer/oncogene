@@ -132,6 +132,20 @@ const options = {
                 }
             ]
         },
+        {
+            key: 'coolKey',
+            showIf: function(config){ return typeof config.sixthByKey.dummy !== "undefined" },
+            variants: [
+                {
+                    code: 'first code',
+                    value: "ok"
+                },
+                {
+                    code: 'second code',
+                    value: "not ok"
+                },
+            ]
+        },
     ],
     config: {wow: {lol: true}},
     result: {

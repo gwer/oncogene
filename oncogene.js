@@ -22,7 +22,14 @@ class Oncogene {
     makeStep(stepSize) {
         this.stepInx = Math.max(0, this.stepInx + stepSize)
 
-        if (this.stepInx >= this.steps.length) return this.renderResult()
+        if (this.stepInx >= this.steps.length) {
+            return this.renderResult()
+        }
+
+        const step = this.getStep();
+        if (this.constructor.isFunction(step.showIf) && !step.showIf(this.config)) {
+           return this.makeStep(stepSize);
+        }
 
         this.renderStep()
     }
